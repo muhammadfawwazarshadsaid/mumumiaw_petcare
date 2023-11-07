@@ -1,7 +1,7 @@
 # Tugas Individu
-Nama    =   Muhammad Fawwaz Arshad Said
-NPM     =   2206082511
-Kelas   =   PBP A
+Nama    =   Muhammad Fawwaz Arshad Said<br>
+NPM     =   2206082511<br>
+Kelas   =   PBP A<br>
 
 <details>
   <summary>Table of Contents</summary>
