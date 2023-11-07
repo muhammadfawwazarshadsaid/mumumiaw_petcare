@@ -16,11 +16,6 @@ Kelas   =   PBP A<br>
   </ol>
 </details>
 
-<br>
-<br>
-<br>
-<br>
-
 ## Tugas 1
 ### Checklist
 Checklist untuk tugas ini adalah sebagai berikut:
@@ -42,11 +37,12 @@ Checklist untuk tugas ini adalah sebagai berikut:
 ### Pertanyaan
 <details>
   <summary>1. Apa perbedaan utama antara stateless dan stateful widget dalam konteks pengembangan aplikasi Flutter?</summary>
+
   Stateless Widget
   1. **Widget Tetap**: Stateless Widget adalah seperti gambar atau kartu pos. Mereka tidak bisa berubah atau menyimpan informasi yang bisa diubah selama aplikasi berjalan.
   2. **Ringan dan Cepat**: Stateless Widget bekerja dengan cepat dan memerlukan sedikit sumber daya karena mereka tidak punya memori internal yang perlu diperbarui.
   3. **Cocok untuk Tampilan Statis**: Stateless Widget ideal digunakan untuk elemen tampilan yang tidak perlu berubah, seperti teks sederhana atau ikon.
-  
+
   Stateful Widget (Widget Dengan Memori):
   1. **Widget yang Bisa Mengingat**: Stateful Widget memiliki kemampuan untuk "mengingat" atau menyimpan data dan bisa berubah selama aplikasi berjalan.
   2. **Pembaruan dan Interaksi Dinamis**: Stateful Widget berguna untuk elemen tampilan yang perlu berubah atau berinteraksi secara dinamis dengan pengguna, seperti daftar yang bisa di-scroll atau formulir yang memerlukan input dari pengguna.
@@ -55,6 +51,7 @@ Checklist untuk tugas ini adalah sebagai berikut:
 </details>
 <details>
   <summary>2. Sebutkan seluruh widget yang kamu gunakan untuk menyelesaikan tugas ini dan jelaskan fungsinya masing-masing</summary>
+
   1. **Beranda (StatelessWidget)**: Ini adalah widget utama yang digunakan untuk membuat halaman beranda aplikasi. Ini mengatur tata letak umum dan berisi elemen-elemen lain seperti AppBar, SingleChildScrollView, dan GridView.
   2. **Scaffold**: Scaffold adalah sebuah widget yang menyediakan kerangka kerja dasar untuk halaman aplikasi. Ini berisi properti seperti AppBar dan body, yang memungkinkan untuk menambahkan elemen-elemen UI ke dalamnya.
   3. **AppBar**: Widget ini digunakan untuk membuat AppBar di bagian atas halaman. Ini menampilkan judul "Mumumiaw Petcare" di dalam AppBar.
