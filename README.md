@@ -3,11 +3,6 @@ Nama    =   Muhammad Fawwaz Arshad Said<br>
 NPM     =   2206082511<br>
 Kelas   =   PBP A<br>
 
-<br>
-<br>
-<br>
-<br>
-
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -21,6 +16,10 @@ Kelas   =   PBP A<br>
   </ol>
 </details>
 
+<br>
+<br>
+<br>
+<br>
 
 ## Tugas 1
 ### Checklist
