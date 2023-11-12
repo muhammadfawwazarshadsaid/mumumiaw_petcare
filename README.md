@@ -13,6 +13,13 @@ Kelas   =   PBP A<br>
         <li><a href="#pertanyaan">Pertanyaan</a></li>
       </ul>
     </li>
+    <li>
+      <a href="#tugas1">Tugas 2</a>
+      <ul>
+        <li><a href="#checklist">Checklist</a></li>
+        <li><a href="#pertanyaan">Pertanyaan</a></li>
+      </ul>
+    </li>
   </ol>
 </details>
 
@@ -180,4 +187,119 @@ Checklist untuk tugas ini adalah sebagai berikut:
   ...
   )
   ```
+</details>
+
+
+## Tugas 1
+### Checklist
+- [x] Membuat minimal satu halaman baru pada aplikasi, yaitu halaman formulir tambah item baru dengan ketentuan sebagai berikut:
+- [x]   Memakai minimal tiga elemen input, yaitu name, amount, description. Tambahkan elemen input sesuai dengan model pada aplikasi tugas Django yang telah kamu buat.
+- [x]   Memiliki sebuah tombol Save.
+- [x]   Setiap elemen input di formulir juga harus divalidasi dengan ketentuan sebagai berikut:
+- [x]     Setiap elemen input tidak boleh kosong.
+- [x]     Setiap elemen input harus berisi data dengan tipe data atribut modelnya.
+- [x] Mengarahkan pengguna ke halaman form tambah item baru ketika menekan tombol Tambah Item pada halaman utama.
+- [x] Memunculkan data sesuai isi dari formulir yang diisi dalam sebuah pop-up setelah menekan tombol Save pada halaman formulir tambah item baru.
+- [x] Membuat sebuah drawer pada aplikasi dengan ketentuan sebagai berikut:
+- [x]   Drawer minimal memiliki dua buah opsi, yaitu Halaman Utama dan Tambah Item.
+- [x]   Ketika memiih opsi Halaman Utama, maka aplikasi akan mengarahkan pengguna ke halaman utama.
+- [x]   Ketika memiih opsi (Tambah Item), maka aplikasi akan mengarahkan pengguna ke halaman form tambah item baru.
+- [x] Menjawab beberapa pertanyaan berikut pada README.md pada root folder (silakan modifikasi README.md yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+- [x]   Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement(), disertai dengan contoh mengenai penggunaan kedua metode tersebut yang tepat!
+- [x]   Jelaskan masing-masing layout widget pada Flutter dan konteks penggunaannya masing-masing!
+- [x]   Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!
+- [x]   Bagaimana penerapan clean architecture pada aplikasi Flutter?
+- [x]   Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial)
+- [x] Melakukan add-commit-push ke GitHub.
+
+### Pertanyaan
+<details>
+  <summary>1. Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement(), disertai dengan contoh mengenai penggunaan kedua metode tersebut yang tepat!</summary>
+  
+  **Navigator.push():**
+  - Metode ini menambahkan halaman baru ke dalam tumpukan navigasi.
+  - Pada saat menggunakan Navigator.push(), ketika pengguna menekan tombol "kembali" di layar berikutnya, mereka akan kembali ke layar sebelumnya di dalam tumpukan.
+  - Cocok digunakan ketika kita ingin menambahkan halaman baru di atas halaman saat ini.
+  Contoh:
+  ```bash
+    if (item.name == "Add New Item") {
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const PetCartFormPage()),
+      );
+  }
+  ```
+
+  **Navigator.pushReplacement():**
+  - Metode ini juga menambahkan halaman baru ke dalam tumpukan navigasi, tetapi dengan menggantikan halaman saat ini dengan halaman baru.
+  - Menggunakan Navigator.pushReplacement(), saat pengguna menekan tombol "kembali" di halaman baru, mereka tidak akan kembali ke halaman yang digantikan, melainkan keluar dari tumpukan tersebut.
+  - Berguna misalnya ketika kita ingin mengganti layar login dengan layar utama setelah login berhasil.
+  Contoh:
+  ```bash
+      onTap: () {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MyHomePage(),
+          ),
+      );
+  }
+  ```
+
+  Jadi, perbedaan utama terletak pada apakah halaman saat ini tetap ada di dalam tumpukan setelah navigasi atau digantikan oleh halaman baru.
+</details>
+
+<details>
+  <summary>2. Jelaskan masing-masing layout widget pada Flutter dan konteks penggunaannya masing-masing!</summary>
+  1. **Container** 
+      Container adalah suatu wadah persegi panjang yang terhiasi dengan menggunakan widget BoxDecoration yang mencakup pengaturan latar belakang, tepi, dan bayangan. Posisi dan penataan widget di dalamnya dapat diatur sesuai kebutuhan.
+  2. **Center**
+      Center digunakan untuk menempatkan widget-widget turunannya secara terpusat, sehingga terfokus di tengah-tengah layar atau wadah yang lebih besar.
+  3. **Row**
+      Row berfungsi untuk menyusun anak-anak widget dalam arah horizontal.
+  4. **Column**
+      Column berfungsi untuk menyusun anak-anak widget dalam arah vertical.
+  4. **Stack**
+      Stack digunakan untuk menumpuk widget satu di atas yang lain, memberikan efek overlay atau tumpukan elemen. Hal ini berguna ketika kita ingin menampilkan beberapa widget secara bersamaan, dan memungkinkan pengaturan yang dinamis terhadap posisi relatif antara widget satu dengan yang lain.
+</details>
+
+<details>
+  <summary>3. Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!</summary>
+
+  **j**
+</details>
+
+<details>
+  <summary>4. Bagaimana penerapan clean architecture pada aplikasi Flutter?</summary>
+
+  **Clean Architecture** pada Flutter memiliki tujuan utama untuk memisahkan tanggung jawab dalam pengembangan aplikasi. Arsitektur ini menciptakan pemisahan yang jelas antara business logic, presenter/UI, state management, eksternal datasources, dan repository. Dengan demikian, membuat kode menjadi lebih testable, maintainable, dan scalable.
+
+  Berikut adalah beberapa lapisan dalam Clean Architecture pada Flutter:
+
+  **Data Layer:**
+  Bertanggung jawab untuk mengelola semua data yang akan ditampilkan kepada pengguna.
+  Ini adalah lapisan terbawah yang berinteraksi dengan sumber data eksternal seperti database atau API.
+
+  **Domain Layer (Repository):**
+  Berfungsi sebagai aturan bisnis dan logika aplikasi yang independen dari implementasi teknis.
+  Menyediakan repository untuk mengambil dan menyimpan data, menjadi perantara antara data layer dan use case di lapisan di atasnya.
+
+  **Dependency Injection:**
+  Merupakan teknik untuk mensupply objek yang dibutuhkan oleh suatu kelas.
+  Membantu dalam menciptakan hubungan antara berbagai komponen aplikasi secara terstruktur.
+
+  **BLoC (Business Logic Component):**
+  Merupakan bagian dari presentasi layer yang menangani logika bisnis.
+  BLoC berfungsi sebagai perantara antara tampilan (UI) dan business logic.
+
+  **Routing:**
+  Bertanggung jawab untuk mengelola perpindahan antar halaman atau layar dalam aplikasi.
+  Routing memastikan navigasi yang benar dan mengelola tumpukan navigasi.
+  Setiap lapisan memiliki tanggung jawab dan fungsinya sendiri, menciptakan isolasi dan kohesi yang diperlukan dalam pengembangan aplikasi. Dengan menggunakan Clean Architecture, pengembang dapat dengan mudah menguji, memelihara, dan memperluas aplikasi Flutter dengan lebih efisien.
+</details>
+
+<details>
+  <summary>5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial)</summary>
+
+  **j**
 </details>
