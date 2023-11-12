@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mumumiaw_petcare/addItemForm.dart';
+import 'package:mumumiaw_petcare/listProduct.dart';
 
 class Beranda extends StatelessWidget {
   Beranda({Key? key}) : super(key: key);
@@ -75,10 +77,23 @@ class ShopCard extends StatelessWidget {
       color: item.bgcard,
       child: InkWell(
         onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(
-                content: Text("Kamu telah menekan tombol ${item.name}!")));
+          if (item.name == "Tambah Item") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddItemForm()),
+            );
+          } else if (item.name == "Lihat Item") {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProductListPage()),
+            );
+          } else {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                  content: Text("Kamu telah menekan tombol ${item.name}!")));
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),
