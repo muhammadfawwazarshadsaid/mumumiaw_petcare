@@ -14,7 +14,14 @@ Kelas   =   PBP A<br>
       </ul>
     </li>
     <li>
-      <a href="#tugas1">Tugas 2</a>
+      <a href="#tugas2">Tugas 2</a>
+      <ul>
+        <li><a href="#checklist">Checklist</a></li>
+        <li><a href="#pertanyaan">Pertanyaan</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#tugas3">Tugas 3</a>
       <ul>
         <li><a href="#checklist">Checklist</a></li>
         <li><a href="#pertanyaan">Pertanyaan</a></li>
@@ -190,7 +197,7 @@ Checklist untuk tugas ini adalah sebagai berikut:
 </details>
 
 
-## Tugas 1
+## Tugas 2
 ### Checklist
 - [x] Membuat minimal satu halaman baru pada aplikasi, yaitu halaman formulir tambah item baru dengan ketentuan sebagai berikut:
 - [x]   Memakai minimal tiga elemen input, yaitu name, amount, description. Tambahkan elemen input sesuai dengan model pada aplikasi tugas Django yang telah kamu buat.
@@ -266,7 +273,33 @@ Checklist untuk tugas ini adalah sebagai berikut:
 <details>
   <summary>3. Sebutkan apa saja elemen input pada form yang kamu pakai pada tugas kali ini dan jelaskan mengapa kamu menggunakan elemen input tersebut!</summary>
 
-  **j**
+  Elemen input yang digunakan pada formulir melibatkan tiga TextFormField yang mewakili tiga input data yang ingin dimasukkan oleh pengguna. Berikut adalah elemen-elemen input tersebut dan penjelasannya:
+
+  A. **TextFormField untuk Nama**
+  Label: 'Nama'
+  Controller: _nameController
+  Decoration: InputDecoration(labelText: 'Nama')
+  Validator: Memastikan bahwa nilai tidak boleh kosong (value == null || value.isEmpty).
+  Penjelasan: Digunakan untuk mengambil nama item yang ingin ditambahkan. Menyediakan label dan validasi agar pengguna memasukkan nilai yang benar.
+  
+  B. **TextFormField untuk Jumlah**
+  Label: 'Jumlah'
+  Controller: _amountController
+  Decoration: InputDecoration(labelText: 'Jumlah')
+  Validator: Memastikan bahwa nilai tidak boleh kosong (value == null || value.isEmpty). Anda dapat menambahkan validasi tambahan untuk jenis data jika diperlukan.
+  Penjelasan: Digunakan untuk mengambil jumlah item yang ingin ditambahkan. Menyediakan label dan validasi agar pengguna memasukkan nilai yang benar.
+
+  C. **TextFormField untuk Deskripsi**
+  Label: 'Deskripsi'
+  Controller: _descriptionController
+  Decoration: InputDecoration(labelText: 'Deskripsi')
+  Validator: Memastikan bahwa nilai tidak boleh kosong (value == null || value.isEmpty). Anda dapat menambahkan validasi tambahan untuk jenis data jika diperlukan.
+  Penjelasan: Digunakan untuk mengambil deskripsi item yang ingin ditambahkan. Menyediakan label dan validasi agar pengguna memasukkan nilai yang benar.
+
+  D. **ElevatedButton**
+  Label: 'Simpan'
+  OnPressed: Memvalidasi formulir dan menampilkan snackbar dengan pesan 'Item berhasil ditambahkan!' jika formulir valid.
+  Penjelasan: Tombol ini digunakan untuk mengirimkan data item baru setelah pengguna mengisi formulir dengan benar.
 </details>
 
 <details>
@@ -301,5 +334,451 @@ Checklist untuk tugas ini adalah sebagai berikut:
 <details>
   <summary>5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial)</summary>
 
-  **j**
+  1. Membuat Halaman Formulir Tambah Item Baru (addItemForm.dart):
+  - Membuat halaman formulir dengan menggunakan Scaffold, AppBar, dan Form.
+  - Menambahkan tiga TextFormField untuk menerima input nama, jumlah, dan deskripsi.
+  - Menambahkan ElevatedButton untuk menyimpan data.
+  - Setiap TextFormField memiliki validator untuk memastikan bahwa nilai tidak boleh kosong.
+  ```bash
+    // addItemForm.dart
+
+  import 'package:flutter/material.dart';
+
+  class AddItemForm extends StatefulWidget {
+    const AddItemForm({Key? key}) : super(key: key);
+
+    @override
+    _AddItemFormState createState() => _AddItemFormState();
+  }
+
+  class _AddItemFormState extends State<AddItemForm> {
+    final _formKey = GlobalKey<FormState>();
+    TextEditingController _nameController = TextEditingController();
+    TextEditingController _amountController = TextEditingController();
+    TextEditingController _descriptionController = TextEditingController();
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Tambah Item Baru'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  controller: _nameController,
+                  decoration: const InputDecoration(labelText: 'Nama'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Nama tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _amountController,
+                  decoration: const InputDecoration(labelText: 'Jumlah'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Jumlah tidak boleh kosong';
+                    }
+                    // Add additional validation for the data type if needed
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _descriptionController,
+                  decoration: const InputDecoration(labelText: 'Deskripsi'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Deskripsi tidak boleh kosong';
+                    }
+                    // Add additional validation for the data type if needed
+                    return null;
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // Save the item or perform any other action
+                        // You can replace the below line with your logic
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Item berhasil ditambahkan!'),
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text('Simpan'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+  }
+
+  ```
+
+  2. Menampilkan Data pada Pop-up setelah Menekan Tombol Simpan (addItemForm.dart)
+  - Menambahkan ScaffoldMessenger.of(context).showSnackBar pada tombol Simpan untuk menampilkan pop-up dengan pesan "Item berhasil ditambahkan!".
+  ```bash
+    // addItemForm.dart
+
+  // ...
+
+  ElevatedButton(
+    onPressed: () {
+      if (_formKey.currentState!.validate()) {
+        // Save the item or perform any other action
+        // You can replace the below line with your logic
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Item berhasil ditambahkan!'),
+          ),
+        );
+      }
+    },
+    child: const Text('Simpan'),
+  ),
+
+  // ...
+  ```
+
+  3. Membuat Drawer dengan Opsi Halaman Utama dan Tambah Item (`menu.dart`)
+  - Menambahkan Drawer dengan dua opsi: "Halaman Utama" dan "Tambah Item".
+  - Mengarahkan pengguna ke halaman utama atau formulir tambah item baru sesuai opsi yang dipilih.
+  ```bash
+    // menu.dart
+
+  // ...
+
+  class Beranda extends StatelessWidget {
+    Beranda({Key? key}) : super(key: key);
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Mumumiaw Petcare',
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  child: Text(
+                    'Mumumiaw Petcare',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                GridView.count(
+                  primary: true,
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  children: items.map((ShopItem item) {
+                    return ShopCard(item);
+                  }).toList(),
+                ),
+              ],
+            ),
+          ),
+        ),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              ListTile(
+                title: const Text('Halaman Utama'),
+                onTap: () {
+                  Navigator.pop(context); // Close the drawer
+                  // Additional logic to navigate to the home page if needed
+                },
+              ),
+              ListTile(
+                title: const Text('Tambah Item'),
+                onTap: () {
+                  Navigator.pop(context); // Close the drawer
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddItemForm()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
+  // ...
+
+  ```
+</details>
+
+## Tugas 3
+### Checklist
+Checklist untuk tugas ini adalah sebagai berikut:
+- [x] Memastikan deployment proyek tugas Django kamu telah berjalan dengan baik.
+- [x] Membuat halaman login pada proyek tugas Flutter.
+- [x] Mengintegrasikan sistem autentikasi Django dengan proyek tugas Flutter.
+- [x] Membuat model kustom sesuai dengan proyek aplikasi Django.
+- [x] Membuat halaman yang berisi daftar semua item yang terdapat pada endpoint JSON di Django yang telah kamu deploy.
+- [x] Tampilkan name, amount, dan description dari masing-masing item pada halaman ini.
+- [x] Membuat halaman detail untuk setiap item yang terdapat pada halaman daftar Item.
+- [x] Halaman ini dapat diakses dengan menekan salah satu item pada halaman daftar Item.
+- [x] Tampilkan seluruh atribut pada model item kamu pada halaman ini.
+- [x] Tambahkan tombol untuk kembali ke halaman daftar item.
+- [x] Menjawab beberapa pertanyaan berikut pada README.md pada root folder (silakan modifikasi README.md yang telah kamu buat sebelumnya; tambahkan subjudul untuk setiap tugas).
+- [x] Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+- [x] Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+- [x] Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.
+- [x] Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+- [x] Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.
+- [x] Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).
+- [x] Melakukan add-commit-push ke GitHub.
+
+### Pertanyaan
+<details>
+  <summary>1. Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?</summary>
+
+  Ya, kita dapat melakukan pengambilan data JSON tanpa membuat model terlebih dahulu. Dalam beberapa situasi, terutama ketika data yang diambil sederhana dan tidak memerlukan pemodelan khusus, pendekatan ini dapat menjadi lebih cepat dan mudah. Kita dapat menggunakan metode seperti http.get dalam Flutter untuk mengambil data JSON secara langsung dari endpoint dan mengonsumsinya.
+
+  Keputusan antara menggunakan model atau tidak tergantung pada kompleksitas data dan kebutuhan aplikasi. Jika data cukup sederhana dan tidak memerlukan pemodelan khusus, pengambilan langsung mungkin lebih efisien. Namun, untuk data yang kompleks atau memerlukan struktur khusus, membuat model dapat membantu dalam pemrosesan dan pengelolaan data.
+</details>
+<details>
+  <summary>2. Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.</summary>
+
+  'CookieRequest' pada umumnya merujuk pada objek yang digunakan untuk mengelola cookie dalam permintaan HTTP. Dalam konteks Flutter, ini dapat berarti objek yang bertanggung jawab untuk mengelola cookie saat berkomunikasi dengan server. Memiliki instance 'CookieRequest' yang dibagikan ke semua komponen di aplikasi Flutter berguna karena cookies dapat membawa informasi otentikasi, sesi, atau data lainnya yang ingin dipertahankan di seluruh aplikasi. Dengan berbagi instance, setiap komponen dapat mengakses dan memanipulasi cookie dengan konsisten, memastikan data yang kohesif dan sesuai di seluruh aplikasi.
+</details>
+<details>
+  <summary>3. Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.</summary>
+
+  Permintaan HTTP: Komponen Flutter membuat permintaan HTTP ke server untuk mendapatkan data. Ini bisa dilakukan dengan menggunakan package seperti http.
+  Respon dari Server: Server mengirimkan data dalam format JSON sebagai respons atas permintaan.
+  Deserialisasi JSON: Di sisi Flutter, data JSON di-deserialisasi ke objek Dart menggunakan fungsi seperti json.decode(). Ini mengubah format JSON menjadi objek Dart yang dapat digunakan di dalam aplikasi.
+  Tampilan di Flutter: Setelah data di-deserialisasi, Flutter menggunakannya untuk membangun antarmuka pengguna atau melakukan tindakan tertentu sesuai kebutuhan aplikasi.
+</details>
+<details>
+  <summary>4. Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.</summary>
+
+  - Input Akun di Flutter: Pengguna memasukkan informasi akun, seperti nama pengguna dan kata sandi, melalui antarmuka Flutter.
+  - Permintaan Autentikasi ke Django: Aplikasi Flutter membuat permintaan HTTP ke server Django untuk mengotentikasi informasi akun yang dimasukkan.
+  - Proses Autentikasi oleh Django: Server Django memverifikasi informasi akun, biasanya menggunakan mekanisme otentikasi seperti OAuth, Token Authentication, atau sesuatu yang setara. Jika autentikasi berhasil, server mengembalikan token atau mengonfirmasi status otentikasi.
+  - Penanganan Token di Flutter: Jika token digunakan, aplikasi Flutter menyimpannya (biasanya di bagian keamanan, seperti secure storage). Token ini kemudian dapat digunakan untuk permintaan selanjutnya sebagai tanda otentikasi.
+  - Tampilan Menu di Flutter: Jika autentikasi berhasil, aplikasi Flutter menavigasikan pengguna ke layar atau menu yang sesuai dengan status otentikasi mereka, seperti menu utama atau dashboard yang memerlukan otentikasi. Ini dapat diatur dengan mengubah state aplikasi atau menggunakan navigasi Flutter untuk memeriksa status otentikasi dan menentukan tampilan yang sesuai.
+</details>
+<details>
+  <summary>5. Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.</summary>
+  
+  1. Material Widget:
+  ```dart
+  return Material(
+    child: Scaffold(
+      // ...
+    ),
+  );
+  ```
+  Fungsi: Membungkus widget dengan tema material design.
+
+  2. Scaffold Widget:
+
+  ```dart
+  Copy code
+  return Scaffold(
+    // ...
+  );
+  ```
+  Fungsi: Menyediakan struktur dasar aplikasi seperti app bar, body, dan drawer.
+
+  3. AppBar Widget:
+
+  ```dart
+  Copy code
+  appBar: AppBar(
+    // ...
+  ),
+  ```
+  Fungsi: Menampilkan app bar dengan judul dan tombol kembali.
+
+  4. IconButton Widget:
+
+  ```dart
+  Copy code
+  IconButton(
+    icon: Icon(Icons.arrow_back),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
+  ```
+  Fungsi: Menampilkan tombol ikon dan menavigasi kembali ke layar sebelumnya.
+
+  5. Form Widget:
+
+  ```dart
+  Copy code
+  body: Form(
+    // ...
+  ),
+  ```
+  Fungsi: Membungkus input dalam formulir untuk validasi dan manajemen state formulir.
+
+  6. TextFormField Widget:
+
+  ```dart
+  Copy code
+  TextFormField(
+    // ...
+  ),
+  ```
+  Fungsi: Menampilkan input teks dengan berbagai properti dan mengelola perubahan nilai.
+
+  7. Align Widget:
+
+  ```dart
+  Copy code
+  Align(
+    // ...
+  ),
+  ```
+  Fungsi: Memposisikan widget anak dalam container dengan pemosisian tertentu.
+
+  8. Row Widget:
+
+  ```dart
+  Copy code
+  Row(
+    // ...
+  ),
+  ```
+  Fungsi: Menampilkan widget anak dalam satu baris.
+
+  9. ElevatedButton Widget:
+
+  ```dart
+  Copy code
+  ElevatedButton(
+    // ...
+  ),
+  ```
+  Fungsi: Menampilkan tombol yang terangkat dengan gaya tertentu.
+
+  10. AlertDialog Widget:
+
+  ```dart
+  Copy code
+  AlertDialog(
+    // ...
+  );
+  ```
+  Fungsi: Menampilkan dialog dengan judul, konten, dan tombol aksi.
+
+  11. ListView.builder Widget:
+
+  ```dart
+  Copy code
+  ListView.builder(
+    // ...
+  );
+  ```
+  Fungsi: Membangun daftar item dengan jumlah dinamis berdasarkan data yang diberikan.
+
+  12. CircularProgressIndicator Widget:
+
+  ```dart
+  Copy code
+  Center(child: CircularProgressIndicator());
+  ```
+  Fungsi: Menampilkan indikator putar ketika data sedang dimuat.
+
+  13. TextField Widget:
+
+  ```dart
+  Copy code
+  TextField(
+    // ...
+  );
+  ```
+  Fungsi: Menampilkan input teks atau area teks yang dapat diedit.
+
+  14. Container Widget:
+
+  ```dart
+  Copy code
+  Container(
+    // ...
+  );
+  ```
+  Fungsi: Memuat widget lain dengan memberikan batasan atau dekorasi tertentu.
+
+  15. SnackBar Widget:
+
+  ```dart
+  Copy code
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(...)));
+  ```
+  Fungsi: Menampilkan pesan sementara di bagian bawah layar.
+
+  16. LeftDrawer Widget:
+
+  ```dart
+  Copy code
+  drawer: LeftDrawer(),
+  ```
+  Fungsi: Menambahkan drawer kiri ke aplikasi.
+
+  17. Provider Widget:
+
+  ```dart
+  Copy code
+  Provider.of<CookieRequest>(context);
+  ```
+  Fungsi: Memberikan akses ke objek CookieRequest ke widget anak.
+</details>
+<details>
+  <summary>Implementasikan Checkout</summary>
+
+  1. Deployment Proyek Django:
+Pastikan proyek Django saya telah di-deploy dengan baik. Pastikan juga bahwa endpoint JSON yang saya akses dari proyek Flutter saya sudah berfungsi dengan benar.
+2. Halaman Login Flutter:
+Pastikan widget LoginPage pada Flutter saya berfungsi dengan baik dan telah terhubung dengan sistem autentikasi Django. Saya juga memastikan bahwa controller _usernameController dan _passwordController saya bekerja dengan benar untuk mengambil nilai dari input username dan password.
+Saya memeriksa apakah fungsi login saya telah terimplementasi dengan benar, termasuk penggunaan URL yang sesuai dan penanganan respons dari server Django.
+3. Integrasi Sistem Autentikasi:
+Pastikan bahwa sistem autentikasi Django saya telah diintegrasikan dengan baik dalam fungsi login saya. Saya memeriksa apakah cookie atau token autentikasi berhasil saya terima dan saya gunakan untuk mengakses endpoint yang memerlukan otentikasi.
+4. Model Kustom Django:
+Pastikan model kustom pada aplikasi Django saya telah saya buat sesuai dengan kebutuhan proyek saya.
+Saya memastikan model tersebut sudah saya migrate ke database.
+5. Halaman Daftar Item (Flutter):
+Pastikan widget ProductPage saya dapat mengambil data produk dari endpoint JSON di Django dengan menggunakan fungsi fetchProduct.
+Saya memastikan tampilan daftar item ditampilkan dengan baik pada widget ProductPage.
+Saya memastikan setiap item menampilkan informasi seperti nama, harga, dan deskripsi.
+6. Halaman Detail Item (Flutter):
+Pastikan halaman detail (DetailItemPage) saya dapat diakses dari halaman daftar item dengan menekan salah satu item.
+Saya memastikan informasi detail item, seperti nama, jumlah, dan deskripsi, ditampilkan dengan benar pada DetailItemPage.
+Saya menambahkan tombol kembali yang berfungsi untuk kembali ke halaman daftar item.
+7. Kode Flutter Tambahan:
+Saya memeriksa kode Flutter tambahan seperti main.dart dan memastikan bahwa routing antar halaman berfungsi dengan benar.
+Saya memastikan bahwa tombol login dan registrasi saya dapat membawa pengguna ke halaman yang sesuai.
+Saya memastikan setiap langkah saya uji dengan cermat untuk memastikan fungsionalitas yang saya inginkan. Jika terdapat masalah, saya perbaiki dan uji kembali hingga aplikasi saya berjalan dengan baik.
 </details>

@@ -1,10 +1,11 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mumumiaw_petcare/menu.dart';
+import 'package:mumumiaw_petcare/screens/detailitem.dart';
 import 'package:mumumiaw_petcare/widgets/left_drawer.dart';
 import 'package:mumumiaw_petcare/models/product.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'detailitem.dart';
 
 class ShopFormPage extends StatefulWidget {
   const ShopFormPage({Key? key});
@@ -137,30 +138,27 @@ class _ShopFormPageState extends State<ShopFormPage> {
                             ),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text('Data Produk'),
-                                      content: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text('Nama: $_name'),
-                                          Text('Harga: $_price'),
-                                          Text('Deskripsi: $_description'),
-                                        ],
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                Product newProduct = Product(
+                                  model:
+                                      "your_model_name", // replace with your model name
+                                  pk: 0, // set to 0 since it's a new product
+                                  fields: Fields(
+                                    user: 0, // replace with the actual user ID
+                                    date: DateTime.now(),
+                                    name: _name,
+                                    description: _description,
+                                    price: _price,
+                                    amount:
+                                        0, // set to 0 for now, you may adjust this based on your needs
+                                  ),
+                                );
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        DetailItemPage(product: newProduct),
+                                  ),
                                 );
                               }
                             },
