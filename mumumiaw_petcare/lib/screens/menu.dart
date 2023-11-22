@@ -112,12 +112,13 @@ class ShopCard extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => ShopFormPage()),
             );
-          } else if (item.name == "Lihat Produk") {
+          } else if (item.name == "Lihat Item") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProductPage()));
           } else if (item.name == "Logout") {
-            final response =
-                await request.logout("http://localhost:8080/auth/logout/");
+            final response = await request.logout(
+                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                "http://127.0.0.1:8000/auth/logout/");
             String message = response["message"];
             if (response['status']) {
               String uname = response["username"];
@@ -126,7 +127,7 @@ class ShopCard extends StatelessWidget {
               ));
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginApp()),
+                MaterialPageRoute(builder: (context) => const LoginPage()),
               );
             } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
