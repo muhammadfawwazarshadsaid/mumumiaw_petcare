@@ -4,7 +4,7 @@ import 'package:mumumiaw_petcare/screens/shoplist_form.dart';
 import 'package:mumumiaw_petcare/screens/showlist_item.dart'; // Import ShowListPage
 
 class LeftDrawer extends StatelessWidget {
-  const LeftDrawer({Key? key});
+  const LeftDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +12,14 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         children: [
           const DrawerHeader(
+            // OK TODO: Bagian drawer header
             decoration: BoxDecoration(
               color: Colors.indigo,
             ),
             child: Column(
               children: [
                 Text(
-                  'Shopping List',
+                  'Book List',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
@@ -29,28 +30,38 @@ class LeftDrawer extends StatelessWidget {
                 Padding(padding: EdgeInsets.all(10)),
                 Text(
                   "Catat seluruh keperluan belanjamu di sini!",
-                  // TODO: Tambahkan gaya teks dengan center alignment, font ukuran 15, warna putih, dan weight biasa
+                  // OK TODO: Tambahkan gaya teks dengan center alignment, font ukuran 15, warna putih, dan weight biasa
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ],
             ),
           ),
-          // ListTile(
-          //   leading: const Icon(Icons.home_outlined),
-          //   title: const Text('Halaman Utama'),
-          //   // Bagian redirection ke MyHomePage
-          //   onTap: () {
-          //     Navigator.pushReplacement(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (context) => Beranda(),
-          //         ));
-          //   },
-          // ),
+          ListTile(
+            leading: const Icon(Icons.home_outlined),
+            title: const Text('Halaman Utama'),
+            // Bagian redirection ke MyHomePage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Beranda(),
+                  ));
+            },
+          ),
           ListTile(
             leading: const Icon(Icons.add_shopping_cart),
             title: const Text('Tambah Produk'),
             // Bagian redirection ke ShopFormPage
             onTap: () {
+              /*
+              OK TODO: Buatlah routing ke ShopFormPage di sini,
+              setelah halaman ShopFormPage sudah dibuat.
+              */
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:mumumiaw_petcare/models/product.dart';
+import 'package:mumumiaw_petcare/screens/detailitem.dart';
 import 'package:mumumiaw_petcare/widgets/left_drawer.dart';
 
 class ProductPage extends StatefulWidget {
@@ -13,8 +14,8 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   Future<List<Product>> fetchProduct() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-    var url = Uri.parse('http://localhost:57678/json/');
+    // OK TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+    var url = Uri.parse('http://127.0.0.1:8000/json/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -60,10 +61,17 @@ class _ProductPageState extends State<ProductPage> {
                 } else {
                   return ListView.builder(
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) => Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            padding: const EdgeInsets.all(20.0),
+                      itemBuilder: (_, index) => GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailItemPage(
+                                    item: snapshot.data![index],
+                                  ),
+                                ),
+                              );
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,7 +84,7 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                Text("${snapshot.data![index].fields.price}"),
+                                Text("${snapshot.data![index].fields.amount}"),
                                 const SizedBox(height: 10),
                                 Text(
                                     "${snapshot.data![index].fields.description}")
