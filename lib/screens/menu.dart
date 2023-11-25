@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mumumiaw_petcare/login.dart';
+import 'package:mumumiaw_petcare/screens/login.dart';
 import 'package:mumumiaw_petcare/screens/shoplist_form.dart';
 import 'package:mumumiaw_petcare/screens/showlist_item.dart';
 import 'package:mumumiaw_petcare/widgets/left_drawer.dart';
-import 'package:mumumiaw_petcare/models/product.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +17,8 @@ class Beranda extends StatelessWidget {
         title: const Text(
           'Mumumiaw Petcare',
         ),
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
       ),
       drawer: const LeftDrawer(),
       body: SingleChildScrollView(
@@ -118,7 +119,7 @@ class ShopCard extends StatelessWidget {
           } else if (item.name == "Logout") {
             final response = await request.logout(
                 // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                "http://127.0.0.1:8000/auth/logout/");
+                "http://127.0.0.1:8080/auth/logout/");
             String message = response["message"];
             if (response['status']) {
               String uname = response["username"];

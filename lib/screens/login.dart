@@ -1,6 +1,5 @@
 import 'package:mumumiaw_petcare/screens/menu.dart';
 import 'package:flutter/material.dart';
-import 'package:mumumiaw_petcare/screens/register.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -71,10 +70,12 @@ class _LoginPageState extends State<LoginPage> {
                 // Untuk menyambungkan Android emulator dengan Django pada localhost,
                 // gunakan URL http://10.0.2.2/
                 final response =
-                    await request.login("http://127.0.0.1:8000/auth/login/", {
+                    await request.login("http://127.0.0.1:8080/auth/login/", {
                   'username': username,
                   'password': password,
                 });
+
+                print('Response from server: $response');
 
                 if (request.loggedIn) {
                   String message = response['message'];

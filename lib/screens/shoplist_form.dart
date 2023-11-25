@@ -1,13 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mumumiaw_petcare/menu.dart';
-import 'package:mumumiaw_petcare/screens/detailitem.dart';
+import 'package:mumumiaw_petcare/screens/menu.dart';
 import 'package:mumumiaw_petcare/widgets/left_drawer.dart';
-import 'package:mumumiaw_petcare/models/product.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'detailitem.dart';
 
 class ShopFormPage extends StatefulWidget {
   const ShopFormPage({super.key});
@@ -20,6 +17,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
   final _formKey = GlobalKey<FormState>();
   String _name = "";
   int _amount = 0;
+  int _price = 0;
   String _description = "";
   @override
   Widget build(BuildContext context) {
@@ -96,6 +94,33 @@ class _ShopFormPageState extends State<ShopFormPage> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 decoration: InputDecoration(
+                  hintText: "Price",
+                  labelText: "Price",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
+                // TODO: done Tambahkan variabel yang sesuai
+                onChanged: (String? value) {
+                  setState(() {
+                    _price = int.parse(value!);
+                  });
+                },
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return "Price tidak boleh kosong!";
+                  }
+                  if (int.tryParse(value) == null) {
+                    return "Price harus berupa angka!";
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: InputDecoration(
                   hintText: "Deskripsi",
                   labelText: "Deskripsi",
                   border: OutlineInputBorder(
@@ -129,9 +154,10 @@ class _ShopFormPageState extends State<ShopFormPage> {
                       // Kirim ke Django dan tunggu respons
                       // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                       final response = await request.postJson(
-                          "http://127.0.0.1:8000/create-flutter/",
+                          "http://127.0.0.1:8080/create-flutter/",
                           jsonEncode(<String, String>{
                             'name': _name,
+                            'price': _price.toString(),
                             'amount': _amount.toString(),
                             'description': _description,
                             // TODO: Sesuaikan field data sesuai dengan aplikasimu
